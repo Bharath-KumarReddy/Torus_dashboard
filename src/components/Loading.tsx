@@ -1,4 +1,4 @@
-import loader from '../assets/loader.gif'
+import loader from '../assets/loader2.gif'
 const Loading = () => {
   return (
     <div className='w-screen h-screen flex justify-center items-center bg-black text-white'>
@@ -8,3 +8,4 @@ const Loading = () => {
 }
 
 export default Loading
+

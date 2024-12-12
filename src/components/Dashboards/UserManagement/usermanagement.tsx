@@ -17,10 +17,17 @@ const UserManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(users);
+  const [loading, setLoading] = useState(false);
   const usersPerPage = 5;
 
   useEffect(() => {
-    dispatch<any>(listUsers());
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch<any>(listUsers());
+      setLoading(false);
+    };
+
+    fetchData();
   }, [dispatch]);
 
   useEffect(() => {
@@ -76,44 +83,59 @@ const UserManagement = () => {
     toast.error("Currently User cannot be deleted");
   };
 
-  return currentUsers.length >0 ? (
+  if (loading) {
+    return <Loading />;
+  }
 
-    
-    <div className="flex flex-col justify-center items-center min-h-screen w-full bg-gray-900 px-4 sm:px-8 md:px-16 lg:px-24 lg:w-screen">
-      <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-white">
-        Customers
-      </h2>
+  return (
+    <>
+      <div className="flex flex-col justify-center items-center min-h-screen w-full bg-gray-900 px-4 sm:px-8 md:px-16 lg:px-24 lg:w-screen">
 
-      <div className="w-full md:w-4/5 max-w-full p-6 bg-white shadow-lg rounded-lg">
-        <div className="mb-4 flex flex-col md:flex-row justify-between items-center">
-          <div className="relative w-full sm:w-2/3 lg:w-1/3 mb-4 sm:mb-0">
-            <input
-              type="text"
-              className="px-4 py-2 pl-10 border rounded-md w-full"
-              placeholder="Search or filter by Name or Email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={handleKeyPress}
-            />
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-800" />
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-center text-white fixed top-[6%] left-4 right-4 md:left-0 md:right-0 hidden md:block sm:left-0 sm:right-0 sm:block">
+          Customers
+        </h1>
+
+        <div className="w-full md:w-4/5 max-w-full p-6 bg-white shadow-lg rounded-lg">
+          <div className="mb-4 flex flex-col md:flex-row justify-between items-center">
+            <div className="relative w-full sm:w-2/3 lg:w-1/3 mb-4 sm:mb-0">
+              <input
+                type="text"
+                className="px-4 py-2 pl-10 border rounded-md w-full"
+                placeholder="Search or filter by Name or Email..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={handleKeyPress}
+              />
+              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-800" />
+            </div>
           </div>
-        </div>
 
-        <div className="overflow-x-auto w-full">
-          <table className="min-w-full table-auto border-collapse">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">ID</th>
-                <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">FirstName</th>
-                <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">LastName</th>
-                <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">Email</th>
-                <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">Region</th>
-                <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="text-md text-gray-700">
-              {currentUsers.map(
-                (user: any) =>
+          <div className="overflow-x-auto w-full ">
+            <table className="min-w-full table-auto border-collapse">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">
+                    ID
+                  </th>
+                  <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">
+                    FirstName
+                  </th>
+                  <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">
+                    LastName
+                  </th>
+                  <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">
+                    Email
+                  </th>
+                  <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">
+                    Region
+                  </th>
+                  <th className="px-4 py-3 text-left text-lg font-medium text-gray-600">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-md text-gray-700">
+                {currentUsers.map((user: any) =>
                   user.ID ? (
                     <tr
                       key={user.id}
@@ -140,39 +162,37 @@ const UserManagement = () => {
                       </td>
                     </tr>
                   ) : null
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 text-center">
+            {Array.from(
+              { length: Math.ceil(filteredUsers.length / usersPerPage) },
+              (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => paginate(index + 1)}
+                  className={`px-4 py-2 mx-1 rounded-lg ${
+                    currentPage === index + 1
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-300"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              )
+            )}
+          </div>
         </div>
 
-        <div className="mt-6 text-center">
-          {Array.from(
-            { length: Math.ceil(filteredUsers.length / usersPerPage) },
-            (_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => paginate(index + 1)}
-                className={`px-4 py-2 mx-1 rounded-lg ${
-                  currentPage === index + 1
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-300"
-                }`}
-              >
-                {index + 1}
-              </button>
-            )
-          )}
-        </div>
+        {isModalOpen && (
+          <UserDetailsModal userDetails={userDetails} onClose={closeModal} />
+        )}
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
       </div>
-
-      {isModalOpen && (
-        <UserDetailsModal userDetails={userDetails} onClose={closeModal} />
-      )}
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
-    </div>
-  ) : (
-     
-    <Loading/>
+    </>
   );
 };
 

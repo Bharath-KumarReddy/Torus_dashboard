@@ -6,7 +6,7 @@ import { ThunkAction } from 'redux-thunk';
 
 export const listUsers = (): ThunkAction<void, any, unknown, any> => async (dispatch: Dispatch) => {
     try {
-        const data = await axios.get('https://retoolapi.dev/ryFIGz/data');
+        const data = await axios.get('https://retoolapi.dev/fFZBpJ/data');
         dispatch({
             type: ActionType.ALLUSER,
             payload: data.data,
@@ -18,7 +18,7 @@ export const listUsers = (): ThunkAction<void, any, unknown, any> => async (disp
 
 export const detailUser = (id: number): ThunkAction<void, any, unknown, any> => async (dispatch: Dispatch) => {
     try {
-        const data = await axios.get(`https://retoolapi.dev/ryFIGz/data/${id}`);
+        const data = await axios.get(`https://retoolapi.dev/fFZBpJ/data/${id}`);
         dispatch({
             type: ActionType.DETAILUSER,
             payload: data.data,

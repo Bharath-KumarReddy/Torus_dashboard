@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listUsers } from '../../../state/ActionCreators/users';
 import { RootState } from '../../../state/reducers';
@@ -56,8 +56,9 @@ const ChartSection = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    
     const filteredUsers = users.filter(user => {
-      const userDate = new Date(user.createdAt);
+      const userDate = new Date(user.RegisterDate); 
       const isWithinDateRange =
         (!startDate || userDate >= startDate) && (!endDate || userDate <= endDate);
       const isInSelectedRegion =
@@ -125,7 +126,7 @@ const ChartSection = () => {
           <label className="mb-2 font-semibold text-zinc-300">Start Date:</label>
           <DatePicker
             selected={startDate}
-            onChange={date => setStartDate(date)}
+            onChange={(date: Date | null) => setStartDate(date)}  
             className="p-2 border rounded-lg shadow-sm"
           />
         </div>
@@ -134,7 +135,7 @@ const ChartSection = () => {
           <label className="mb-2 font-semibold text-zinc-300">End Date:</label>
           <DatePicker
             selected={endDate}
-            onChange={date => setEndDate(date)}
+            onChange={(date: Date | null) => setEndDate(date)}  
             className="p-2 border rounded-lg shadow-sm"
           />
         </div>

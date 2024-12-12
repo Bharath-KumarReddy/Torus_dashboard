@@ -110,7 +110,7 @@ const AnalyticsData = () => {
       <div className="py-10">
         <Link to="/chart-section" className="text-white">
           <button className="bg-purple-700 text-white text-md sm:text-lg font-bold px-6 py-4 rounded-full flex items-center justify-center shadow-lg transition transform hover:scale-105">
-            Click to Chart Section
+            Go to Chart Section
             <i className="ri-arrow-right-line text-xl sm:text-2xl ml-3"></i>
           </button>
         </Link>

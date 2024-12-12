@@ -56,7 +56,6 @@ const ChartSection = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    
     const filteredUsers = users.filter(user => {
       const userDate = new Date(user.RegisterDate); 
       const isWithinDateRange =
@@ -66,18 +65,28 @@ const ChartSection = () => {
       return isWithinDateRange && isInSelectedRegion;
     });
 
+    const monthlyRegistrations = Array(6).fill(0); 
+
+    filteredUsers.forEach(user => {
+      const userMonth = new Date(user.RegisterDate).getMonth(); 
+      if (userMonth >= 5 && userMonth <= 10) {
+        monthlyRegistrations[userMonth - 5] += 1;
+      }
+    });
+
     const mockRegistrationTrend: ChartData = {
       labels: ['June', 'July', 'August', 'September', 'October', 'November'],
       datasets: [
         {
           label: 'User Registrations',
-          data: [5, 12, 8, 15, 10, 20],
+          data: monthlyRegistrations,
           borderColor: 'rgba(75,192,192,1)',
           backgroundColor: 'rgba(75,192,192,0.2)',
           tension: 0.4,
         },
       ],
     };
+
     setUserRegistrationData(mockRegistrationTrend);
 
     const activeCount = filteredUsers.filter(user => user.Status === 'Active').length;
@@ -113,12 +122,12 @@ const ChartSection = () => {
     });
   }, [users, startDate, endDate, selectedRegion]);
 
-  const regions = Array.from(new Set(users.map(user => user.Region)));
+  const regions = Array.from(new Set(users.map(user => user.Region))).filter(Boolean);
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-900 py-10 w-screen overflow-x-hidden">
 
-      <h2 className="text-4xl font-bold text-white 800 mb-8">Analytics Charts</h2>
+      <h2 className="text-4xl font-bold text-white mb-8">Analytics Charts</h2>
 
       <div className="w-full max-w-6xl mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4 overflow-x-hidden">
 
@@ -147,7 +156,7 @@ const ChartSection = () => {
             onChange={e => setSelectedRegion(e.target.value)}
             className="p-2 border rounded-lg shadow-sm"
           >
-            <option value="All">All Regions</option>
+            <option value="All" className='text-black'>All Regions</option>
             {regions.map(region => (
               <option key={region} value={region}>{region}</option>
             ))}

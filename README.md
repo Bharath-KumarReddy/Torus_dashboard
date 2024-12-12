@@ -48,3 +48,63 @@ export default tseslint.config({
   },
 })
 ```
+
+
+## Features Implemented
+
+1. **User Management Dashboard**  
+   - **Login Page**: Allows user authentication using a mock API.
+   - **Dashboard**: Displays a table of users with actions (view details, delete).
+   - **Search and Filter**: Filter users by name or email.
+   - **Pagination**: Displays users with pagination (5 users per page).
+   
+2. **Analytics Dashboard**  
+   - **Charts Section**: 
+     - User Registration Trend: A line chart showing user registrations over the past 6 months.
+     - Active vs Inactive Users: A pie chart comparing active and inactive users.
+     - Users by Region: A bar chart or map displaying user distribution by regions.
+   
+3. **Filters for Analytics**  
+   - Allows filtering analytics by date range and region.
+   
+4. **Responsive Design**  
+   - The dashboard is fully responsive and mobile-friendly.
+   
+---
+
+## API
+
+This project uses the following API to fetch user data:
+
+- **API URL**: [https://retoolapi.dev/ryFIGz/data](https://retoolapi.dev/ryFIGz/data)
+
+---
+
+## Login Credentials
+  - username: emilys
+  - password: emiyspass
+
+---
+
+## Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- **Node.js**: You can download it from [here](https://nodejs.org/).
+
+---
+
+## Getting Started
+
+Follow these steps to get the project up and running:
+
+1. **Clone the repository**:
+
+2. **Install the dependencies**:
+   - cd root_directory
+   - npm install
+
+3. **Start the project**:
+   - npm run dev
+
+

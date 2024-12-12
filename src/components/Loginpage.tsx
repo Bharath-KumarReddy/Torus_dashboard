@@ -28,7 +28,6 @@ const LoginPage = () => {
           password: password,
           expiresInMins: 30, 
         }),
-        credentials: 'include', 
       });
 
       if (!response.ok) {

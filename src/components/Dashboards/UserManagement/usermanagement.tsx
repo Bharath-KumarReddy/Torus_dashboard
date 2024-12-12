@@ -5,6 +5,7 @@ import { RootState } from "../../../state/reducers";
 import { FaEye, FaTrash, FaSearch } from "react-icons/fa";
 import UserDetailsModal from "./UserDetailsModal";
 import { toast, ToastContainer } from "react-toastify";
+import Loading from "../../Loading";
 import "react-toastify/dist/ReactToastify.css";
 
 const UserManagement = () => {
@@ -75,7 +76,9 @@ const UserManagement = () => {
     toast.error("Currently User cannot be deleted");
   };
 
-  return (
+  return currentUsers.length >0 ? (
+
+    
     <div className="flex flex-col justify-center items-center min-h-screen w-full bg-gray-900 px-4 sm:px-8 md:px-16 lg:px-24 lg:w-screen">
       <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-white">
         Customers
@@ -167,6 +170,9 @@ const UserManagement = () => {
       )}
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
     </div>
+  ) : (
+     
+    <Loading/>
   );
 };
 

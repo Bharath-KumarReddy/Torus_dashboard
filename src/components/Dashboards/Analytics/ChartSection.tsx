@@ -126,17 +126,15 @@ const ChartSection = () => {
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-900 py-10 w-screen overflow-x-hidden">
-
       <h2 className="text-4xl font-bold text-white mb-8">Analytics Charts</h2>
 
       <div className="w-full max-w-6xl mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4 overflow-x-hidden">
-
         <div className="flex flex-col overflow-x-hidden">
           <label className="mb-2 font-semibold text-zinc-300">Start Date:</label>
           <DatePicker
             selected={startDate}
-            onChange={(date: Date | null) => setStartDate(date)}  
-            className="p-2 border rounded-lg shadow-sm"
+            onChange={(date: Date | null) => setStartDate(date)}
+            className="p-2 border rounded-lg shadow-sm text-black bg-white dark:text-white dark:bg-gray-800" 
           />
         </div>
 
@@ -144,8 +142,8 @@ const ChartSection = () => {
           <label className="mb-2 font-semibold text-zinc-300">End Date:</label>
           <DatePicker
             selected={endDate}
-            onChange={(date: Date | null) => setEndDate(date)}  
-            className="p-2 border rounded-lg shadow-sm"
+            onChange={(date: Date | null) => setEndDate(date)}
+            className="p-2 border rounded-lg shadow-sm text-black bg-white dark:text-white dark:bg-gray-800" 
           />
         </div>
 
@@ -153,19 +151,18 @@ const ChartSection = () => {
           <label className="mb-2 font-semibold text-zinc-300">Region:</label>
           <select
             value={selectedRegion}
-            onChange={e => setSelectedRegion(e.target.value)}
-            className="p-2 border rounded-lg shadow-sm"
+            onChange={(e) => setSelectedRegion(e.target.value)}
+            className="p-2 border rounded-lg shadow-sm text-black bg-white dark:text-white dark:bg-gray-800"
           >
-            <option value="All" className='text-black'>All Regions</option>
-            {regions.map(region => (
-              <option key={region} value={region}>{region}</option>
+            <option value="All" className="text-black dark:text-white">All Regions</option>
+            {regions.map((region) => (
+              <option key={region} value={region} className="text-black dark:text-white">{region}</option>
             ))}
           </select>
         </div>
       </div>
 
       <div className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 gap-10 overflow-x-hidden">
-
         <div className="p-6 bg-white rounded-lg shadow-lg overflow-x-hidden">
           <h3 className="text-xl font-semibold text-gray-700 mb-4">User Registration Trend</h3>
           <Line data={userRegistrationData} options={{ maintainAspectRatio: true }} />
@@ -181,7 +178,6 @@ const ChartSection = () => {
           <Bar data={usersByRegionData} options={{ maintainAspectRatio: true }} />
         </div>
       </div>
-
     </div>
   );
 };

@@ -76,7 +76,7 @@ export default tseslint.config({
 
 This project uses the following API to fetch user data:
 
-- **API URL**: [https://retoolapi.dev/ryFIGz/data](https://retoolapi.dev/ryFIGz/data)
+- **API URL**: [https://retoolapi.dev/fFZBpJ/data](https://retoolapi.dev/fFZBpJ/data)
 
 ---
 
